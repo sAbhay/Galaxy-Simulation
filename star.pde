@@ -1,101 +1,24 @@
-class star
+class Star extends Base
 {
-  
-  float x;
-  float y;
-  float z;
-  
-  float r;
-  float g;
-  float b;
-  
-  float size;
-  
-  float colourScheme;
-  
-  star(float _x, float _y, float _z, float _size, int _colourScheme)
+  ArrayList<Planet> planet = new ArrayList<Planet>();
+
+  Star(float _x, float _y, float _z, float _size, int _colourScheme)
   {
-    x = _x;
-    y = _y;
-    z = _z;
-    
-    colourScheme = (int) random(9);
-    
-    size = _size;
-    
-    if (colourScheme == 1)
-    {
-      r = random(200, 255);
-      g = random(50);
-      b = 0;
-    }
-    
-    if (colourScheme == 2)
-    {
-      r = random(200, 255);
-      g = random(50, 150);
-      b = 0;
-    }
+    super(_x, _y, _z, _size, _colourScheme);
 
-    if (colourScheme == 3)
+    for (int i = 0; i < (int) random(10); i++)
     {
-      r = random(200, 255);
-      g = random(50, 200);
-      b = 0;
-    }
-
-    if (colourScheme == 4)
-    {
-      r = random(200, 255);
-      g = random(200, 255);
-      b = 0;
-    }
-    
-        if (colourScheme == 5)
-    {
-      r = random(225, 255);
-      g = random(225, 255);
-      b = random(100, 200);
-    }
-    
-    if (colourScheme == 6)
-    {
-      r = 255;
-      g = 255;
-      b = 255;
-    }
-    
-        if (colourScheme == 7)
-    {
-      r = random(100, 200);
-      g = random(100, 200);
-      b = 255;
-    }
-    
-        if (colourScheme == 8)
-    {
-      r = random(100, 200);
-      g = 255;
-      b = random(100, 200);
-    }
-    
-    if (colourScheme == 9)
-    {
-      r = random(255);
-      g = random(255);
-      b = random(255);
+      planet.add(new Planet(_x + random(-50, 50), _y + random(-5, 5), _z + random(-50, 50), random(2), (int) random(9)));
     }
   }
   
   void display()
   {
-    pushMatrix();
-    
-    translate(x, y, z);
-    stroke(r, g, b);
-    fill(r, g, b);
-    sphere(size);
-    
-    popMatrix();
+   super.display();
+   
+   for (int i = 0; i < planet.size(); i++)
+    {
+      planet.get(i).display();
+    }
   }
-} 
+}

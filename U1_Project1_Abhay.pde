@@ -5,10 +5,7 @@ import peasy.test.*;
 
 PeasyCam cam;
 
-ArrayList<star> s = new ArrayList<star>();
-ArrayList<planet> p = new ArrayList<planet>();
-
-int k;
+ArrayList<Star> s = new ArrayList<Star>();
 
 void setup()
 {
@@ -18,44 +15,20 @@ void setup()
 
   fullScreen(P3D);
 
-  sphereDetail(2);
+  sphereDetail(10);
 }
 
 void draw()
 {
   background(0);
-  
-  k += 8;
 
   for (int i = 0; i < 5; i++)
   { 
-    s.add(new star(random(-2500, 2500), random(-2500, 2500), random(-2500, 2500), random(2, 5), (int) random(8)));
+    s.add(new Star(random(-2500, 2500), random(-2500, 2500), random(-2500, 2500), random(5, 8), (int) random(8)));
   }
 
   for (int i = 0; i < s.size() - 1; i++)
   {
     s.get(i).display();
-
-    //if(i < 10)
-    //{
-    // s.remove(i); 
-    //}
-    
-    //comment
-
-    if (i != s.size())
-    {
-      p.add(new planet(s.get(i).x + random(-50, 50), s.get(i).y + random(-50, 50), s.get(i).z + random(-50, 50), random(2), (int) random(9)));
-    }
-
-    for (int j = 0; j < p.size(); j++)
-    {
-      p.get(j).display();
-
-      //if(j > 30)
-      //{
-      // p.remove(j); 
-      //}
-    }
   }
 }
