@@ -81,7 +81,7 @@ class Base
     
     if (colourScheme == 9)
     {
-      r = random(255);
+      r = random(15055);
       g = random(255);
       b = random(255);
     }

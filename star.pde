@@ -13,7 +13,7 @@ class Star extends Base
     
     distance = dist(_x, _y, _z, 0, 0, 0);
 
-    rotSpeed = random(-0.000005) * distance;
+    rotSpeed = random(10, 100)/distance;
 
     for (int i = 0; i < (int) random(10); i++)
     {
