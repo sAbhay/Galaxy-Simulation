@@ -5,9 +5,9 @@ import peasy.test.*;
 
 PeasyCam cam;
 
-float cameraX = 0;
-float cameraY = 0;
-float cameraZ = 0;
+float centerX = 0;
+float centerY = 0;
+float centerZ = 0;
 
 ArrayList<Star> s = new ArrayList<Star>();
 
@@ -30,9 +30,11 @@ PImage sGreen;
 PImage sPurple;
 PImage sYellow;
 
+String http = "http://";
+
 void setup()
 {
-  cam = new PeasyCam(this, cameraX, cameraY, cameraZ, 500);
+  cam = new PeasyCam(this, 0, 0, 0, 500);
   cam.setMaximumDistance(7500);
   cam.setMinimumDistance(500);
 
@@ -41,20 +43,18 @@ void setup()
   fullScreen(P3D);
 
   sphereDetail(5);
-  textureMode(NORMAL);
+  //textureMode(NORMAL)//;
   
-  sRed = loadImage("sRed.jpg");
-  sBlueDark = loadImage("sBlueDark.jpg");
-  sCyan = loadImage("sCyan.jpg");
-  sBlueLight = loadImage("sBlueLight.jpg");
-  sGreen = loadImage("sGreen.jpg");
-  sPurple = loadImage("sPurple.jpg");
-  sYellow = loadImage("sYellow.jpg");
+  //sRed = loadImage("sRed.jpg");
+  
+  noStroke();
 }
 
 void draw()
 {
   background(0);
+
+  translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
 
@@ -81,7 +81,7 @@ void draw()
       newStar(200, 0, 22.1, 24.5);
     }
   }
-  
+
   for (int i = 0; i < s.size() - 1; i++)
   {
     s.get(i).display();
@@ -103,32 +103,32 @@ void move()
 {
   if (upPressed)
   {
-    cameraY -= movementSpeed;
+    centerY -= movementSpeed;
   }
 
   if (downPressed)
   {
-    cameraY += movementSpeed;
+    centerY += movementSpeed;
   }
 
   if (leftPressed)
   {
-    cameraX -= movementSpeed;
+    centerX -= movementSpeed;
   }
 
   if (rightPressed)
   {
-    cameraX += movementSpeed;
+    centerX += movementSpeed;
   }
 
   if (depthUp)
   {
-    cameraZ += movementSpeed;
+    centerZ += movementSpeed;
   }
 
   if (depthDown)
   {
-    cameraZ -= movementSpeed;
+    centerZ -= movementSpeed;
   }
 }
 
@@ -162,6 +162,11 @@ void keyPressed()
   if (key == 'q')
   {
     depthDown = true;
+  }
+  
+  if(key == 'r')
+  {
+   reset(); 
   }
 }
 
@@ -198,10 +203,17 @@ void keyReleased()
   }
 }
 
+void reset()
+{
+  centerX = 0;
+  centerY = 0;
+  centerZ = 0;
+}
+
 void newStar(float rPos, float rZ, float lowStarPlace, float highStarPlace)
 {
   if (starPlace >= lowStarPlace && starPlace <= highStarPlace)
   {
-    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(5, 8), (int) random(8)));
+    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(5, 8), (int) random(6)));
   }
 }

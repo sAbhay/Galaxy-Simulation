@@ -1,101 +1,109 @@
 class Base
 {
-  
+  PImage sRed;
+  PImage sBlueDark;
+  PImage sCyan;
+  PImage sBlueLight;
+  PImage sGreen;
+  PImage sPurple;
+  PImage sYellow;
+
   float x;
   float y;
   float z;
-  
+
   float r;
   float g;
   float b;
-  
+
   float size;
+
+  int textureNo;
   
-  int colourScheme;
-  
-  Base(float _x, float _y, float _z, float _size, int _colourScheme)
+  PShape sphere;
+
+  Base(float _x, float _y, float _z, float _size, int _textureNo)
   {
     x = _x;
     y = _y;
     z = _z;
-    
-    colourScheme = _colourScheme;
-    
+
+    textureNo = _textureNo;
+
     size = _size;
     
-    if (colourScheme == 1)
-    {
-      r = random(200, 255);
-      g = random(50);
-      b = 0;
-    }
+    sRed = loadImage("sRed.jpg");
+    sBlueDark = loadImage("sBlueDark.jpg");
+    sCyan = loadImage("sCyan.jpg");
+    sBlueLight = loadImage("sBlueLight.jpg");
+    sGreen = loadImage("sGreen.jpg");
+    sPurple = loadImage("sPurple.jpg");
+    sYellow = loadImage("sYellow.jpg");
     
-    if (colourScheme == 2)
+    sphere = createShape(SPHERE, size);
+
+    if (textureNo == 0)
     {
-      r = random(200, 255);
-      g = random(50, 150);
-      b = 0;
+      sphere.setTexture(sRed);
     }
 
-    if (colourScheme == 3)
+    if (textureNo == 1)
     {
-      r = random(200, 255);
-      g = random(50, 200);
-      b = 0;
+     sphere.setTexture(sBlueDark);
     }
 
-    if (colourScheme == 4)
+    if (textureNo == 2)
     {
-      r = random(200, 255);
-      g = random(200, 255);
-      b = 0;
+      sphere.setTexture(sCyan);
     }
-    
-    if (colourScheme == 5)
+
+    if (textureNo == 3)
     {
-      r = random(225, 255);
-      g = random(225, 255);
-      b = random(100, 200);
+      sphere.setTexture(sBlueLight);
     }
-    
-    if (colourScheme == 6)
+
+    if (textureNo == 4)
     {
-      r = 255;
-      g = 255;
-      b = 255;
+      sphere.setTexture(sGreen);
     }
-    
-    if (colourScheme == 7)
+
+    if (textureNo == 5)
     {
-      r = random(100, 200);
-      g = random(100, 200);
-      b = 255;
+      sphere.setTexture(sPurple);
     }
-    
-    if (colourScheme == 8)
+
+    if (textureNo == 6)
+    {
+      sphere.setTexture(sYellow);
+    }
+
+    if (textureNo == 7)
     {
       r = random(100, 200);
       g = 255;
       b = random(100, 200);
     }
-    
-    if (colourScheme == 9)
+
+    if (textureNo == 8)
     {
       r = random(15055);
       g = random(255);
       b = random(255);
     }
   }
-  
+
   void display()
   {
     pushMatrix();
-    
+
     translate(x, y, z);
-    stroke(r, g, b);
-    fill(r, g, b);
-    sphere(size);
-    
+    //stroke(r, g, b);
+    //stroke(255);
+    //fill(r, g, b);
+    //texture(texture);
+    //sphere(size);
+    shape(sphere);
+
     popMatrix();
   }
 }
