@@ -11,9 +11,9 @@ class Star extends Base
   { 
     super(_x, _y, _z, _size, _colourScheme);
 
-    distance = dist(_x, _y, _z, 0, 0, 0);
+    distance = dist(_x, _y, _z, centerX, centerY, centerZ);
 
-    rotSpeed = random(5, 50)/distance;
+    rotSpeed = (random(5, 50)/distance);
 
     for (int i = 0; i < (int) random(10); i++)
     {
@@ -24,17 +24,18 @@ class Star extends Base
   void display()
   { 
     pushMatrix();
-
+    
     rotate(rot);
-    rot += rotSpeed;
+    rot += rotSpeed * rotSpeedChanger;
 
     super.display();
 
     for (int i = 0; i < planet.size(); i++)
     {
       planet.get(i).display();
+      
     }
-
+    
     popMatrix();
   }
 }

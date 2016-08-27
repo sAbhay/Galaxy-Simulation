@@ -18,7 +18,10 @@ boolean rightPressed;
 boolean depthUp;
 boolean depthDown;
 
-float movementSpeed;
+boolean rotSpeedUp;
+boolean rotSpeedDown;
+
+float movementSpeed = 2;
 
 float starPlace;
 
@@ -26,17 +29,18 @@ PImage[] sTexture = new PImage[7];
 PImage[] rPTexture = new PImage[7]; 
 PImage[] gPTexture = new PImage[7]; 
 
+float rotSpeedChanger = 1;
+float rotSpeedChange = 0.005;
+
 void setup()
 {
   cam = new PeasyCam(this, 0, 0, 0, 500);
   cam.setMaximumDistance(7500);
-  cam.setMinimumDistance(500);
-
-  movementSpeed = 30;
+  cam.setMinimumDistance(0);
 
   fullScreen(P3D);
 
-  sphereDetail(10);
+  sphereDetail(20);
 
   sTexture[0] = loadImage("sRed.jpg");
   sTexture[1] = loadImage("sBlueDark.jpg");
@@ -45,7 +49,7 @@ void setup()
   sTexture[4] = loadImage("sGreen.jpg");
   sTexture[5] = loadImage("sPurple.jpg");
   sTexture[6] = loadImage("sYellow.jpg");
-  
+
   rPTexture[0] = loadImage("rP1.jpg");
   rPTexture[1] = loadImage("rP2.jpg");
   rPTexture[2] = loadImage("rP3.jpg");
@@ -53,7 +57,7 @@ void setup()
   rPTexture[4] = loadImage("rP5.jpg");
   rPTexture[5] = loadImage("rP6.jpg");
   rPTexture[6] = loadImage("rP7.jpg");
-  
+
   gPTexture[0] = loadImage("gP1.jpg");
   gPTexture[1] = loadImage("gP2.jpg");
   gPTexture[2] = loadImage("gP3.jpg");
@@ -61,7 +65,9 @@ void setup()
   gPTexture[4] = loadImage("gP5.jpg");
   gPTexture[5] = loadImage("gP6.jpg");
   gPTexture[6] = loadImage("gP7.jpg");
-  
+
+  //frameRate(30);
+
   noStroke();
 }
 
@@ -72,13 +78,13 @@ void draw()
   translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
-  float maxStars = 1000;
+  float maxStars = 200;
 
   starPlace = random(24.5);
 
   if (numberOfStars < maxStars + 1)
   {
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 1; i++)
     { 
       newStar(3000, 490, 0, 1);
       newStar(2800, 455, 1, 2.1);
@@ -96,16 +102,18 @@ void draw()
       newStar(400, 35, 19.8, 22.1);
       newStar(200, 0, 22.1, 24.5);
 
-      //loading percentage
-      println(numberOfStars/(maxStars/100) + "%   " + millis()/1000 + "     " + numberOfStars);
-      
-      fill(0, 255, 0);
-      rect(width/2, height/2 - 20, (numberOfStars/(maxStars/100))*2, 40);
-      
+      //loading bar
+
       fill(255);
-      rect(width/2, height/2 - 20, 200, 40);
-      
-      //text();
+      rect(-100, -20, 200, 40);
+
+      fill(0, 255, 0);
+      rect(-100, -20, (numberOfStars/(maxStars/100))*2, 40);
+
+      fill(0);
+      text(numberOfStars/(maxStars/100) + "%", 50, 5);
+
+      fill(255);
     }
   }
 
@@ -114,23 +122,24 @@ void draw()
     for (int i = 0; i < s.size() - 1; i++)
     {
       s.get(i).display();
-      
-      println(i/(maxStars/100) + "%");
     }
   }
-  move();
+  moveGalaxy();
+  changeRotSpeed();
+
+  println(rotSpeedChanger);
 }
 
-void move()
+void moveGalaxy()
 {
   if (upPressed)
   {
-    centerY -= movementSpeed;
+    centerY += movementSpeed;
   }
 
   if (downPressed)
   {
-    centerY += movementSpeed;
+    centerY -= movementSpeed;
   }
 
   if (leftPressed)
@@ -190,6 +199,19 @@ void keyPressed()
   {
     reset();
   }
+
+  if (key == CODED)
+  {
+    if (keyCode == UP)
+    {
+      rotSpeedUp = true;
+    }
+
+    if (keyCode == DOWN)
+    {
+      rotSpeedDown = true;
+    }
+  }
 }
 
 void keyReleased()
@@ -223,6 +245,19 @@ void keyReleased()
   {
     depthDown = false;
   }
+
+  if (key == CODED)
+  {
+    if (keyCode == UP)
+    {
+      rotSpeedUp = false;
+    }
+
+    if (keyCode == DOWN)
+    {
+      rotSpeedDown = false;
+    }
+  }
 }
 
 void reset()
@@ -230,6 +265,29 @@ void reset()
   centerX = 0;
   centerY = 0;
   centerZ = 0;
+}
+
+void changeRotSpeed()
+{
+  if (rotSpeedUp)
+  {
+    rotSpeedChanger += rotSpeedChange;
+  }
+
+  if (rotSpeedDown)
+  {
+    rotSpeedChanger -= rotSpeedChange;
+  }
+
+  if (rotSpeedChanger < 0)
+  {
+    rotSpeedChanger = 0;
+  }
+  
+  if (rotSpeedChanger > 2)
+  {
+    rotSpeedChanger = 2;
+  }
 }
 
 void newStar(float rPos, float rZ, float lowStarPlace, float highStarPlace)
