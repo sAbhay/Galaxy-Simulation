@@ -43,7 +43,7 @@ void setup()
   sTexture[4] = loadImage("sGreen.jpg");
   sTexture[5] = loadImage("sPurple.jpg");
   sTexture[6] = loadImage("sYellow.jpg");
-
+  
   noStroke();
 }
 
@@ -54,7 +54,7 @@ void draw()
   translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
-  float maxStars = 1500;
+  float maxStars = 150;
 
   starPlace = random(24.5);
 

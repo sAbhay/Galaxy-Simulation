@@ -39,7 +39,7 @@ class Base
       sphere.setTexture(sTexture[(int) random(7)]);
     }
 
-    if (textureNo == 2)
+    if (textureNo == 1)
     {
       r = random(100, 200);
       g = 255;
@@ -52,8 +52,6 @@ class Base
     pushMatrix();
 
     translate(x, y, z);
-    stroke(255, 10);
-
     shape(sphere);
 
     popMatrix();
