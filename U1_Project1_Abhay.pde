@@ -22,15 +22,7 @@ float movementSpeed;
 
 float starPlace;
 
-PImage sRed;
-PImage sBlueDark;
-PImage sCyan;
-PImage sBlueLight;
-PImage sGreen;
-PImage sPurple;
-PImage sYellow;
-
-String http = "http://";
+PImage[] sTexture = new PImage[7]; 
 
 void setup()
 {
@@ -42,11 +34,16 @@ void setup()
 
   fullScreen(P3D);
 
-  sphereDetail(5);
-  //textureMode(NORMAL)//;
-  
-  //sRed = loadImage("sRed.jpg");
-  
+  sphereDetail(10);
+
+  sTexture[0] = loadImage("sRed.jpg");
+  sTexture[1] = loadImage("sBlueDark.jpg");
+  sTexture[2] = loadImage("sCyan.jpg");
+  sTexture[3] = loadImage("sBlueLight.jpg");
+  sTexture[4] = loadImage("sGreen.jpg");
+  sTexture[5] = loadImage("sPurple.jpg");
+  sTexture[6] = loadImage("sYellow.jpg");
+
   noStroke();
 }
 
@@ -57,10 +54,11 @@ void draw()
   translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
+  float maxStars = 1500;
 
   starPlace = random(24.5);
 
-  if (numberOfStars < 1500)
+  if (numberOfStars < maxStars + 1)
   {
     for (int i = 0; i < 5; i++)
     { 
@@ -79,24 +77,22 @@ void draw()
       newStar(600, 70, 17.6, 19.8);
       newStar(400, 35, 19.8, 22.1);
       newStar(200, 0, 22.1, 24.5);
+
+      //loading percentage
+      println(numberOfStars/(maxStars/100) + "%   " + millis()/1000 + "     " + numberOfStars);
     }
   }
 
-  for (int i = 0; i < s.size() - 1; i++)
+  if (numberOfStars > maxStars - 1)
   {
-    s.get(i).display();
-
-    println(s.size());
-
-    /*int numberOfStars = s.size();
-     
-     while(numberOfStars > 2000)
-     {
-     s.remove(i); 
-     }*/
+    for (int i = 0; i < s.size() - 1; i++)
+    {
+      s.get(i).display();
+      
+      println(i/(maxStars/100) + "%");
+    }
   }
-
-  //move();
+  move();
 }
 
 void move()
@@ -113,12 +109,12 @@ void move()
 
   if (leftPressed)
   {
-    centerX -= movementSpeed;
+    centerX += movementSpeed;
   }
 
   if (rightPressed)
   {
-    centerX += movementSpeed;
+    centerX -= movementSpeed;
   }
 
   if (depthUp)
@@ -163,10 +159,10 @@ void keyPressed()
   {
     depthDown = true;
   }
-  
-  if(key == 'r')
+
+  if (key == 'r')
   {
-   reset(); 
+    reset();
   }
 }
 
@@ -214,6 +210,6 @@ void newStar(float rPos, float rZ, float lowStarPlace, float highStarPlace)
 {
   if (starPlace >= lowStarPlace && starPlace <= highStarPlace)
   {
-    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(5, 8), (int) random(6)));
+    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(5, 8), 0));
   }
 }
