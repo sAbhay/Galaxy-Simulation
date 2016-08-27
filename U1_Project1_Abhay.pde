@@ -23,6 +23,8 @@ float movementSpeed;
 float starPlace;
 
 PImage[] sTexture = new PImage[7]; 
+PImage[] rPTexture = new PImage[7]; 
+PImage[] gPTexture = new PImage[7]; 
 
 void setup()
 {
@@ -44,6 +46,22 @@ void setup()
   sTexture[5] = loadImage("sPurple.jpg");
   sTexture[6] = loadImage("sYellow.jpg");
   
+  rPTexture[0] = loadImage("rP1.jpg");
+  rPTexture[1] = loadImage("rP2.jpg");
+  rPTexture[2] = loadImage("rP3.jpg");
+  rPTexture[3] = loadImage("rP4.jpg");
+  rPTexture[4] = loadImage("rP5.jpg");
+  rPTexture[5] = loadImage("rP6.jpg");
+  rPTexture[6] = loadImage("rP7.jpg");
+  
+  gPTexture[0] = loadImage("gP1.jpg");
+  gPTexture[1] = loadImage("gP2.jpg");
+  gPTexture[2] = loadImage("gP3.jpg");
+  gPTexture[3] = loadImage("gP4.jpg");
+  gPTexture[4] = loadImage("gP5.jpg");
+  gPTexture[5] = loadImage("gP6.jpg");
+  gPTexture[6] = loadImage("gP7.jpg");
+  
   noStroke();
 }
 
@@ -54,7 +72,7 @@ void draw()
   translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
-  float maxStars = 150;
+  float maxStars = 1000;
 
   starPlace = random(24.5);
 
@@ -80,6 +98,14 @@ void draw()
 
       //loading percentage
       println(numberOfStars/(maxStars/100) + "%   " + millis()/1000 + "     " + numberOfStars);
+      
+      fill(0, 255, 0);
+      rect(width/2, height/2 - 20, (numberOfStars/(maxStars/100))*2, 40);
+      
+      fill(255);
+      rect(width/2, height/2 - 20, 200, 40);
+      
+      //text();
     }
   }
 
@@ -210,6 +236,6 @@ void newStar(float rPos, float rZ, float lowStarPlace, float highStarPlace)
 {
   if (starPlace >= lowStarPlace && starPlace <= highStarPlace)
   {
-    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(5, 8), 0));
+    s.add(new Star(random(-rPos, -rPos + 200), random(-rPos, -rPos + 200), random(rZ, 1050 - rZ), random(6, 10), 0));
   }
 }

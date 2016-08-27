@@ -17,7 +17,7 @@ class Star extends Base
 
     for (int i = 0; i < (int) random(10); i++)
     {
-      planet.add(new Planet(_x + random(-50, 50), _y + random(-5, 5), _z + random(-50, 50), random(2), (int) random(7, 8)));
+      planet.add(new Planet(_x + random(-100, 100), _y + random(-5, 5), _z + random(-100, 100), random(1, 3), (int) random(1, 3)));
     }
   }
 

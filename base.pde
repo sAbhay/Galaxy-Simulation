@@ -41,9 +41,12 @@ class Base
 
     if (textureNo == 1)
     {
-      r = random(100, 200);
-      g = 255;
-      b = random(100, 200);
+      sphere.setTexture(rPTexture[(int) random(7)]);
+    }
+    
+    if (textureNo == 2)
+    {
+      sphere.setTexture(gPTexture[(int) random(7)]);
     }
   }
 
