@@ -93,7 +93,7 @@ void draw()
 
   //use this to control the number of stars you want to render
   //if the sketch lags or freezes, reduce maxStars
-  float maxStars = 2000;
+  float maxStars = 1500;
 
   starPlace = random(24.5);
 
