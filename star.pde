@@ -24,7 +24,7 @@ class Star extends Base
   void display()
   { 
     pushMatrix();
-    
+
     rotate(rot);
     rot += rotSpeed * rotSpeedChanger;
 
@@ -33,9 +33,8 @@ class Star extends Base
     for (int i = 0; i < planet.size(); i++)
     {
       planet.get(i).display();
-      
     }
-    
+
     popMatrix();
   }
 }

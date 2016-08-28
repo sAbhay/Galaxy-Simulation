@@ -1,13 +1,5 @@
 class Base
 {
-  PImage sRed;
-  PImage sBlueDark;
-  PImage sCyan;
-  PImage sBlueLight;
-  PImage sGreen;
-  PImage sPurple;
-  PImage sYellow;
-
   float x;
   float y;
   float z;

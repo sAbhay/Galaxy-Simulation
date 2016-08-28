@@ -1,3 +1,9 @@
+/*
+Abhay Singhal's Project - Galaxy
+ 
+This is a simulation of a galaxy. 
+*/
+
 import peasy.*;
 import peasy.org.apache.commons.math.*;
 import peasy.org.apache.commons.math.geometry.*;
@@ -9,8 +15,10 @@ float centerX = 0;
 float centerY = 0;
 float centerZ = 0;
 
+//declare arraylist of stars
 ArrayList<Star> s = new ArrayList<Star>();
 
+//movement
 boolean upPressed;
 boolean downPressed;
 boolean leftPressed;
@@ -18,30 +26,34 @@ boolean rightPressed;
 boolean depthUp;
 boolean depthDown;
 
+//changing rotation speed
 boolean rotSpeedUp;
 boolean rotSpeedDown;
 
+//declare speed at which galaxy moves
 float movementSpeed = 2;
+float rotSpeedChanger = 1;
+float rotSpeedChange = 0.01;
 
+//used to stagger star spawn
 float starPlace;
 
+//declare arrays for texture images
 PImage[] sTexture = new PImage[7]; 
 PImage[] rPTexture = new PImage[7]; 
 PImage[] gPTexture = new PImage[7]; 
-
-float rotSpeedChanger = 1;
-float rotSpeedChange = 0.005;
 
 void setup()
 {
   cam = new PeasyCam(this, 0, 0, 0, 500);
   cam.setMaximumDistance(7500);
-  cam.setMinimumDistance(0);
+  cam.setMinimumDistance(250);
 
   fullScreen(P3D);
 
   sphereDetail(20);
 
+  //load star textures
   sTexture[0] = loadImage("sRed.jpg");
   sTexture[1] = loadImage("sBlueDark.jpg");
   sTexture[2] = loadImage("sCyan.jpg");
@@ -50,6 +62,7 @@ void setup()
   sTexture[5] = loadImage("sPurple.jpg");
   sTexture[6] = loadImage("sYellow.jpg");
 
+  //load rocky planet textures
   rPTexture[0] = loadImage("rP1.jpg");
   rPTexture[1] = loadImage("rP2.jpg");
   rPTexture[2] = loadImage("rP3.jpg");
@@ -58,6 +71,7 @@ void setup()
   rPTexture[5] = loadImage("rP6.jpg");
   rPTexture[6] = loadImage("rP7.jpg");
 
+  //load gas planet textures
   gPTexture[0] = loadImage("gP1.jpg");
   gPTexture[1] = loadImage("gP2.jpg");
   gPTexture[2] = loadImage("gP3.jpg");
@@ -65,8 +79,6 @@ void setup()
   gPTexture[4] = loadImage("gP5.jpg");
   gPTexture[5] = loadImage("gP6.jpg");
   gPTexture[6] = loadImage("gP7.jpg");
-
-  //frameRate(30);
 
   noStroke();
 }
@@ -78,7 +90,10 @@ void draw()
   translate(centerX, centerY, centerZ);
 
   int numberOfStars = s.size();
-  float maxStars = 200;
+
+  //use this to control the number of stars you want to render
+  //if the sketch lags or freezes, reduce maxStars
+  float maxStars = 2000;
 
   starPlace = random(24.5);
 
@@ -86,6 +101,8 @@ void draw()
   {
     for (int i = 0; i < 1; i++)
     { 
+      //stagger star spawn placement
+
       newStar(3000, 490, 0, 1);
       newStar(2800, 455, 1, 2.1);
       newStar(2600, 420, 2.1, 3.3);
@@ -111,7 +128,7 @@ void draw()
       rect(-100, -20, (numberOfStars/(maxStars/100))*2, 40);
 
       fill(0);
-      text(numberOfStars/(maxStars/100) + "%", 50, 5);
+      text((int) (numberOfStars/(maxStars/100)) + "%", 60, 5);
 
       fill(255);
     }
@@ -119,15 +136,16 @@ void draw()
 
   if (numberOfStars > maxStars - 1)
   {
+    //display stars
+
     for (int i = 0; i < s.size() - 1; i++)
     {
       s.get(i).display();
     }
   }
+
   moveGalaxy();
   changeRotSpeed();
-
-  println(rotSpeedChanger);
 }
 
 void moveGalaxy()
@@ -265,7 +283,11 @@ void reset()
   centerX = 0;
   centerY = 0;
   centerZ = 0;
+
+  rotSpeedChanger = 1;
 }
+
+//controls rotation speed
 
 void changeRotSpeed()
 {
@@ -283,13 +305,14 @@ void changeRotSpeed()
   {
     rotSpeedChanger = 0;
   }
-  
+
   if (rotSpeedChanger > 2)
   {
     rotSpeedChanger = 2;
   }
 }
 
+//spawn star
 void newStar(float rPos, float rZ, float lowStarPlace, float highStarPlace)
 {
   if (starPlace >= lowStarPlace && starPlace <= highStarPlace)
