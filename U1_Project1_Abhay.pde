@@ -93,7 +93,7 @@ void draw()
 
   //use this to control the number of stars you want to render
   //if the sketch lags or freezes, reduce maxStars
-  float maxStars = 1500;
+  float maxStars = 1000;
 
   starPlace = random(24.5);
 
@@ -141,6 +141,8 @@ void draw()
     for (int i = 0; i < s.size() - 1; i++)
     {
       s.get(i).display();
+      
+      println(i/(maxStars/100) + "%");
     }
   }
 
